@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Content - Admin{% endblock %}
+
+{% block content %}
+<section class="admin-form-section">
+    <div class="container">
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">← Back to Dashboard</a>
+        
+        <div class="form-container">
+            <h1>Upload Course Content</h1>
+            <p class="form-description">Upload videos, PDF notes, or PowerPoint presentations for your courses</p>
+            
+            <form method="POST" enctype="multipart/form-data" class="admin-form">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group">
+                    <label for="course_id">Select Course *</label>
+                    {{ form.course_id(class="form-control") }}
+                    {% if form.course_id.errors %}
+                        <div class="form-errors">
+                            {% for error in form.course_id.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="title">Content Title *</label>
+                    {{ form.title(class="form-control", placeholder="e.g., Introduction to Veterinary Medicine") }}
+                    {% if form.title.errors %}
+                        <div class="form-errors">
+                            {% for error in form.title.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="content_type">Content Type *</label>
+                    {{ form.content_type(class="form-control", id="contentType") }}
+                    {% if form.content_type.errors %}
+                        <div class="form-errors">
+                            {% for error in form.content_type.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="file">Upload File *</label>
+                    {{ form.file(class="form-control-file") }}
+                    {% if form.file.errors %}
+                        <div class="form-errors">
+                            {% for error in form.file.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <small class="form-text" id="fileHelp">
+                        Video: mp4, avi, mov, mkv, webm | PDF: pdf | Presentation: ppt, pptx
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="display_order">Display Order</label>
+                    {{ form.display_order(class="form-control", value="0") }}
+                    {% if form.display_order.errors %}
+                        <div class="form-errors">
+                            {% for error in form.display_order.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <small class="form-text">Order in which this content appears (0 = first)</small>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Upload Content</button>
+                    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+            
+            <div class="upload-note">
+                <h4>⚠️ Important Notes:</h4>
+                <ul>
+                    <li>Maximum file size: 500MB</li>
+                    <li>Videos will be playable in the course player</li>
+                    <li>PDFs and presentations can be downloaded by students</li>
+                    <li>Large files may take time to upload</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

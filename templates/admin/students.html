@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Students - Admin{% endblock %}
+
+{% block content %}
+<section class="admin-students">
+    <div class="container">
+        <div class="page-header">
+            <h1>Student Management</h1>
+            <p>Total Students: {{ students|length }}</p>
+        </div>
+        
+        {% if students %}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Enrolled Courses</th>
+                        <th>Joined Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student_data in students %}
+                    {% set student = student_data.student %}
+                    <tr>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.username }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student_data.enrollment_count }}</td>
+                        <td>{{ student.created_at[:10] }}</td>
+                        <td>
+                            <a href="{{ url_for('admin.student_detail', student_id=student.id) }}" class="btn btn-small">View Details</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">👥</div>
+            <h3>No students registered yet</h3>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

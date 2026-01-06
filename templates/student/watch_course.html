@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - Watch Course{% endblock %}
+
+{% block content %}
+<section class="watch-course-section">
+    <div class="container-fluid">
+        <div class="course-player-layout">
+            <!-- Course Content Area -->
+            <div class="course-content-area">
+                <div class="course-header">
+                    <h1>{{ course.title }}</h1>
+                    <div class="progress-indicator">
+                        <span>Progress: {{ enrollment.progress|int }}%</span>
+                        <div class="progress-bar-small">
+                            <div class="progress-fill" style="width: {{ enrollment.progress }}%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Display Area -->
+                <div class="content-player" id="contentPlayer">
+                    {% if contents %}
+                        <div class="content-placeholder">
+                            <p>Select a lesson from the sidebar to start learning</p>
+                            <div class="placeholder-icon">▶️</div>
+                        </div>
+                    {% else %}
+                        <div class="content-placeholder">
+                            <p>No content available yet. Check back soon!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Course Sidebar with Content List -->
+            <div class="course-sidebar-content">
+                <div class="sidebar-header">
+                    <h3>Course Content</h3>
+                    <a href="{{ url_for('student.dashboard') }}" class="btn btn-small">← Back to Dashboard</a>
+                </div>
+                
+                {% if contents %}
+                <div class="content-list">
+                    {% for content in contents %}
+                    <div class="content-item" data-content-id="{{ content.id }}" data-content-type="{{ content.content_type }}" data-content-path="{{ content.file_path }}">
+                        <div class="content-item-icon">
+                            {% if content.content_type == 'video' %}
+                                🎥
+                            {% elif content.content_type == 'pdf' %}
+                                📄
+                            {% elif content.content_type == 'presentation' %}
+                                📊
+                            {% endif %}
+                        </div>
+                        <div class="content-item-info">
+                            <h4>{{ content.title }}</h4>
+                            <span class="content-type-label">{{ content.content_type|upper }}</span>
+                        </div>
+                        {% if content.content_type in ['pdf', 'presentation'] %}
+                        <a href="{{ url_for('student.download_content', content_id=content.id) }}" class="btn-download" title="Download">
+                            ⬇️
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-content">
+                    <p>No content available yet</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block extra_js %}
+<script>
+    // Course content player functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const contentItems = document.querySelectorAll('.content-item');
+        const contentPlayer = document.getElementById('contentPlayer');
+        
+        contentItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                contentItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                const contentType = this.dataset.contentType;
+                const contentPath = this.dataset.contentPath;
+                const contentId = this.dataset.contentId;
+                
+                // Display content based on type
+                if (contentType === 'video') {
+                    contentPlayer.innerHTML = `
+                        <video controls class="video-player" id="videoPlayer">
+                            <source src="{{ url_for('static', filename='../uploads/') }}${contentPath}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    `;
+                    
+                    // Update progress when video is watched
+                    const video = document.getElementById('videoPlayer');
+                    video.addEventListener('ended', function() {
+                        updateProgress();
+                    });
+                    
+                } else if (contentType === 'pdf') {
+                    contentPlayer.innerHTML = `
+                        <div class="pdf-viewer">
+                            <embed src="{{ url_for('static', filename='../uploads/') }}${contentPath}" type="application/pdf" width="100%" height="800px">
+                        </div>
+                    `;
+                } else if (contentType === 'presentation') {
+                    contentPlayer.innerHTML = `
+                        <div class="presentation-viewer">
+                            <p>PowerPoint presentation</p>
+                            <a href="{{ url_for('student.download_content', content_id='') }}${contentId}" class="btn btn-primary">Download Presentation</a>
+                        </div>
+                    `;
+                }
+            });
+        });
+        
+        function updateProgress() {
+            const totalItems = contentItems.length;
+            const activeItems = document.querySelectorAll('.content-item.completed').length + 1;
+            const progress = Math.min(Math.round((activeItems / totalItems) * 100), 100);
+            
+            // Send progress update to server
+            fetch(`{{ url_for('student.update_progress', course_id=course.id, progress=0) }}`.replace('/0', `/${progress}`), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token() }}'
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}
