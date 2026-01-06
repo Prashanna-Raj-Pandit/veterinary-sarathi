@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart - Veterinary Sarathi{% endblock %}
+
+{% block content %}
+<section class="cart-section">
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        
+        {% if cart_items %}
+            <div class="cart-layout">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    {% for item in cart_items %}
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            {% if item.thumbnail %}
+                                <img src="{{ url_for('static', filename='../uploads/' ~ item.thumbnail) }}" alt="{{ item.title }}">
+                            {% else %}
+                                <div class="cart-thumbnail-placeholder">🐾</div>
+                            {% endif %}
+                        </div>
+                        <div class="cart-item-info">
+                            <h3>{{ item.title }}</h3>
+                            <p class="cart-category">{{ item.category|title }}</p>
+                            <p class="cart-description">{{ item.description[:100] }}...</p>
+                        </div>
+                        <div class="cart-item-price">
+                            <span class="price">{{ item.price|currency }}</span>
+                        </div>
+                        <div class="cart-item-action">
+                            <form method="POST" action="{{ url_for('student.remove_from_cart', course_id=item.course_id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn-remove" title="Remove from cart">🗑️ Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Items ({{ cart_items|length }})</span>
+                        <span>{{ total|currency }}</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span><strong>Total</strong></span>
+                        <span><strong>{{ total|currency }}</strong></span>
+                    </div>
+                    
+                    <form method="POST" action="{{ url_for('payment.initiate_cart_payment') }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" class="btn btn-success btn-block">
+                            Proceed to Checkout
+                        </button>
+                    </form>
+                    
+                    <a href="{{ url_for('student.courses') }}" class="btn btn-secondary btn-block">
+                        Continue Shopping
+                    </a>
+                    
+                    <div class="payment-info">
+                        <p><strong>Payment Method:</strong></p>
+                        <p>eSewa (Nepal's Digital Wallet)</p>
+                        <img src="https://esewa.com.np/common/images/esewa_logo.png" alt="eSewa" style="max-width: 100px; margin-top: 10px;">
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">🛒</div>
+                <h3>Your cart is empty</h3>
+                <p>Add some courses to your cart to get started</p>
+                <a href="{{ url_for('student.courses') }}" class="btn btn-primary">Browse Courses</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

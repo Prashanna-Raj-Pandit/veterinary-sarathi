@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Course Contents - Admin{% endblock %}
+
+{% block content %}
+<section class="course-contents-admin">
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <a href="{{ url_for('admin.manage_courses') }}" class="btn btn-secondary">← Back to Courses</a>
+                <h1>{{ course.title }} - Content</h1>
+            </div>
+            <a href="{{ url_for('admin.upload_content') }}" class="btn btn-primary">+ Add Content</a>
+        </div>
+        
+        {% if contents %}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>File</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for content in contents %}
+                    <tr>
+                        <td>{{ content.display_order }}</td>
+                        <td>{{ content.title }}</td>
+                        <td>
+                            <span class="content-type-badge content-{{ content.content_type }}">
+                                {{ content.content_type|upper }}
+                            </span>
+                        </td>
+                        <td><code>{{ content.file_path }}</code></td>
+                        <td>
+                            <form method="POST" action="{{ url_for('admin.delete_content', content_id=content.id) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this content?');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-small btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">📁</div>
+            <h3>No content uploaded yet</h3>
+            <p>Upload videos, PDFs, or presentations for this course</p>
+            <a href="{{ url_for('admin.upload_content') }}" class="btn btn-primary">Upload Content</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

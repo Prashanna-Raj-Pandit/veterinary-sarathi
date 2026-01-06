@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Courses - Veterinary Sarathi{% endblock %}
+
+{% block content %}
+<section class="courses-section">
+    <div class="container">
+        <h1>All Courses</h1>
+        
+        <!-- Search and Filter -->
+        <form method="GET" action="{{ url_for('courses.index') }}" class="search-form">
+            {{ form.hidden_tag() }}
+            <div class="search-filter-group">
+                <div class="search-input-group">
+                    {{ form.query(class="form-control search-input", placeholder="Search courses...") }}
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+                <div class="filter-group">
+                    {{ form.category(class="form-control") }}
+                </div>
+            </div>
+        </form>
+        
+        {% if courses %}
+            <div class="courses-count">
+                <p>Showing {{ courses|length }} course(s)</p>
+            </div>
+            
+            <div class="courses-grid">
+                {% for course in courses %}
+                <div class="course-card">
+                    {% if course.thumbnail %}
+                        <img src="{{ url_for('static', filename='../uploads/' ~ course.thumbnail) }}" alt="{{ course.title }}" class="course-thumbnail">
+                    {% else %}
+                        <div class="course-thumbnail-placeholder">🐾</div>
+                    {% endif %}
+                    <div class="course-info">
+                        <span class="course-category">{{ course.category|title }}</span>
+                        <h3>{{ course.title }}</h3>
+                        <p>{{ course.description[:100] }}...</p>
+                        <div class="course-footer">
+                            <span class="course-price">{{ course.price|currency }}</span>
+                            <a href="{{ url_for('student.course_detail', course_id=course.id) }}" class="btn btn-small">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3>No courses found</h3>
+                <p>Try adjusting your search or filter criteria</p>
+                <a href="{{ url_for('courses.index') }}" class="btn btn-primary">View All Courses</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

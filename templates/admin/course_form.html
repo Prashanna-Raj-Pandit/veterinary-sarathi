@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Course - Admin{% endblock %}
+
+{% block content %}
+<section class="admin-form-section">
+    <div class="container">
+        <a href="{{ url_for('admin.manage_courses') }}" class="btn btn-secondary">← Back to Courses</a>
+        
+        <div class="form-container">
+            <h1>{{ action }} Course</h1>
+            
+            <form method="POST" enctype="multipart/form-data" class="admin-form">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group">
+                    <label for="title">Course Title *</label>
+                    {{ form.title(class="form-control") }}
+                    {% if form.title.errors %}
+                        <div class="form-errors">
+                            {% for error in form.title.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Course Description *</label>
+                    {{ form.description(class="form-control", rows="5") }}
+                    {% if form.description.errors %}
+                        <div class="form-errors">
+                            {% for error in form.description.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price">Price (NPR) *</label>
+                        {{ form.price(class="form-control") }}
+                        {% if form.price.errors %}
+                            <div class="form-errors">
+                                {% for error in form.price.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Category *</label>
+                        {{ form.category(class="form-control") }}
+                        {% if form.category.errors %}
+                            <div class="form-errors">
+                                {% for error in form.category.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="thumbnail">Course Thumbnail</label>
+                    {{ form.thumbnail(class="form-control-file") }}
+                    {% if form.thumbnail.errors %}
+                        <div class="form-errors">
+                            {% for error in form.thumbnail.errors %}
+                                <span class="error">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <small class="form-text">Accepted formats: JPG, JPEG, PNG, GIF, WEBP</small>
+                    
+                    {% if course and course.thumbnail %}
+                    <div class="current-thumbnail">
+                        <p>Current thumbnail:</p>
+                        <img src="{{ url_for('static', filename='../uploads/' ~ course.thumbnail) }}" alt="Thumbnail" style="max-width: 200px;">
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">{{ action }} Course</button>
+                    <a href="{{ url_for('admin.manage_courses') }}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

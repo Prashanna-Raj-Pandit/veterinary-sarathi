@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Veterinary Sarathi{% endblock %}
+
+{% block content %}
+<section class="admin-dashboard">
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p class="dashboard-subtitle">Welcome, {{ current_user.username }}</p>
+        
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <h3>{{ total_students }}</h3>
+                    <p>Total Students</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-info">
+                    <h3>{{ total_courses }}</h3>
+                    <p>Total Courses</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-info">
+                    <h3>{{ total_enrollments }}</h3>
+                    <p>Total Enrollments</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                    <h3>{{ total_revenue|currency }}</h3>
+                    <p>Total Revenue</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                <a href="{{ url_for('admin.create_course') }}" class="action-card">
+                    <div class="action-icon">➕</div>
+                    <h4>Create Course</h4>
+                </a>
+                <a href="{{ url_for('admin.upload_content') }}" class="action-card">
+                    <div class="action-icon">📤</div>
+                    <h4>Upload Content</h4>
+                </a>
+                <a href="{{ url_for('admin.manage_courses') }}" class="action-card">
+                    <div class="action-icon">⚙️</div>
+                    <h4>Manage Courses</h4>
+                </a>
+                <a href="{{ url_for('admin.students') }}" class="action-card">
+                    <div class="action-icon">👥</div>
+                    <h4>View Students</h4>
+                </a>
+                <a href="{{ url_for('admin.analytics') }}" class="action-card">
+                    <div class="action-icon">📊</div>
+                    <h4>Analytics</h4>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Recent Enrollments -->
+        {% if recent_enrollments %}
+        <div class="recent-enrollments">
+            <h2>Recent Enrollments</h2>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for enrollment in recent_enrollments %}
+                        <tr>
+                            <td>{{ enrollment.username }}</td>
+                            <td>{{ enrollment.course_title }}</td>
+                            <td>{{ enrollment.enrolled_at[:10] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Popular Courses -->
+        {% if popular_courses %}
+        <div class="popular-courses">
+            <h2>Most Popular Courses</h2>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Course Title</th>
+                            <th>Enrollments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in popular_courses %}
+                        <tr>
+                            <td>{{ course.title }}</td>
+                            <td>{{ course.enrollment_count }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

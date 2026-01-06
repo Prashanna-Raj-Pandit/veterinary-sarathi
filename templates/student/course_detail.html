@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }} - Veterinary Sarathi{% endblock %}
+
+{% block content %}
+<section class="course-detail-section">
+    <div class="container">
+        <div class="course-detail-grid">
+            <!-- Course Main Content -->
+            <div class="course-main">
+                {% if course.thumbnail %}
+                    <img src="{{ url_for('static', filename='../uploads/' ~ course.thumbnail) }}" alt="{{ course.title }}" class="course-detail-image">
+                {% else %}
+                    <div class="course-detail-placeholder">🐾 {{ course.title }}</div>
+                {% endif %}
+                
+                <div class="course-category-badge">{{ course.category|title }}</div>
+                
+                <h1>{{ course.title }}</h1>
+                
+                <div class="course-description">
+                    <h3>About This Course</h3>
+                    <p>{{ course.description }}</p>
+                </div>
+                
+                <!-- Course Content Preview -->
+                {% if contents %}
+                <div class="course-curriculum">
+                    <h3>Course Curriculum</h3>
+                    <div class="curriculum-list">
+                        {% for content in contents %}
+                        <div class="curriculum-item">
+                            <span class="content-type-icon">
+                                {% if content.content_type == 'video' %}
+                                    🎥
+                                {% elif content.content_type == 'pdf' %}
+                                    📄
+                                {% elif content.content_type == 'presentation' %}
+                                    📊
+                                {% endif %}
+                            </span>
+                            <span class="content-title">{{ content.title }}</span>
+                            <span class="content-type">{{ content.content_type|upper }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Course Sidebar -->
+            <div class="course-sidebar">
+                <div class="price-card">
+                    <div class="price-amount">{{ course.price|currency }}</div>
+                    
+                    {% if current_user.is_authenticated and not current_user.is_admin %}
+                        {% if is_enrolled %}
+                            <a href="{{ url_for('student.watch_course', course_id=course.id) }}" class="btn btn-success btn-block">
+                                ✓ Enrolled - Start Learning
+                            </a>
+                        {% elif in_cart %}
+                            <div class="alert alert-info">Already in cart</div>
+                            <a href="{{ url_for('student.cart') }}" class="btn btn-primary btn-block">Go to Cart</a>
+                        {% else %}
+                            <form method="POST" action="{{ url_for('student.add_to_cart', course_id=course.id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-primary btn-block">Add to Cart</button>
+                            </form>
+                            <form method="POST" action="{{ url_for('payment.initiate_payment', course_id=course.id) }}" style="margin-top: 0.5rem;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-success btn-block">Buy Now</button>
+                            </form>
+                        {% endif %}
+                    {% elif current_user.is_authenticated and current_user.is_admin %}
+                        <div class="alert alert-info">You are viewing as admin</div>
+                    {% else %}
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-block">Login to Enroll</a>
+                        <p class="text-center" style="margin-top: 0.5rem;">
+                            <a href="{{ url_for('auth.register') }}">Create an account</a>
+                        </p>
+                    {% endif %}
+                    
+                    <div class="course-includes">
+                        <h4>This course includes:</h4>
+                        <ul>
+                            <li>📹 Video lectures</li>
+                            <li>📄 PDF study materials</li>
+                            <li>📊 PowerPoint presentations</li>
+                            <li>💾 Downloadable resources</li>
+                            <li>♾️ Lifetime access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

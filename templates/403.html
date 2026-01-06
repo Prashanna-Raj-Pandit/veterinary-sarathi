@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Access Forbidden - 403{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="container">
+        <div class="error-content">
+            <h1 class="error-code">403</h1>
+            <h2>Access Forbidden</h2>
+            <p>You don't have permission to access this page.</p>
+            <div class="error-actions">
+                <a href="{{ url_for('index') }}" class="btn btn-primary">Go Home</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - Veterinary Sarathi{% endblock %}
+
+{% block content %}
+<section class="profile-section">
+    <div class="container">
+        <h1>Your Profile</h1>
+        
+        <div class="profile-grid">
+            <!-- Profile Information -->
+            <div class="profile-card">
+                <h2>Update Profile</h2>
+                <form method="POST" action="{{ url_for('auth.profile') }}" class="profile-form">
+                    {{ profile_form.hidden_tag() }}
+                    <input type="hidden" name="update_profile" value="1">
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        {{ profile_form.username(class="form-control") }}
+                        {% if profile_form.username.errors %}
+                            <div class="form-errors">
+                                {% for error in profile_form.username.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        {{ profile_form.email(class="form-control") }}
+                        {% if profile_form.email.errors %}
+                            <div class="form-errors">
+                                {% for error in profile_form.email.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+            
+            <!-- Change Password -->
+            <div class="profile-card">
+                <h2>Change Password</h2>
+                <form method="POST" action="{{ url_for('auth.profile') }}" class="profile-form">
+                    {{ password_form.hidden_tag() }}
+                    <input type="hidden" name="change_password" value="1">
+                    
+                    <div class="form-group">
+                        <label for="current_password">Current Password</label>
+                        {{ password_form.current_password(class="form-control") }}
+                        {% if password_form.current_password.errors %}
+                            <div class="form-errors">
+                                {% for error in password_form.current_password.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new_password">New Password</label>
+                        {{ password_form.new_password(class="form-control") }}
+                        {% if password_form.new_password.errors %}
+                            <div class="form-errors">
+                                {% for error in password_form.new_password.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm New Password</label>
+                        {{ password_form.confirm_password(class="form-control") }}
+                        {% if password_form.confirm_password.errors %}
+                            <div class="form-errors">
+                                {% for error in password_form.confirm_password.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Account Information -->
+        <div class="account-info">
+            <h3>Account Information</h3>
+            <p><strong>Account Type:</strong> {% if current_user.is_admin %}Administrator{% else %}Student{% endif %}</p>
+            <p><strong>Member Since:</strong> {{ current_user.created_at }}</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

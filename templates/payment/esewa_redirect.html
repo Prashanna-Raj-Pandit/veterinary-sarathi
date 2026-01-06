@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Redirecting to eSewa...{% endblock %}
+
+{% block content %}
+<section class="payment-redirect">
+    <div class="container">
+        <div class="payment-card">
+            <h1>Processing Payment</h1>
+            <p>Redirecting you to eSewa for secure payment...</p>
+            <div class="loading-spinner"></div>
+            
+            <div class="payment-details">
+                <h3>Payment Summary</h3>
+                {% if cart_items %}
+                    <p><strong>Items:</strong> {{ cart_items|length }} course(s)</p>
+                    <ul class="payment-items">
+                        {% for item in cart_items %}
+                        <li>{{ item.title }} - {{ item.price|currency }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p><strong>Total Amount:</strong> {{ esewa_data.tAmt|currency }}</p>
+                {% elif course %}
+                    <p><strong>Course:</strong> {{ course.title }}</p>
+                    <p><strong>Amount:</strong> {{ esewa_data.tAmt|currency }}</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- eSewa Payment Form (auto-submit) -->
+        <form id="esewaForm" action="{{ esewa_url }}" method="POST" style="display: none;">
+            <input type="hidden" name="amt" value="{{ esewa_data.amt }}">
+            <input type="hidden" name="psc" value="{{ esewa_data.psc }}">
+            <input type="hidden" name="pdc" value="{{ esewa_data.pdc }}">
+            <input type="hidden" name="txAmt" value="{{ esewa_data.txAmt }}">
+            <input type="hidden" name="tAmt" value="{{ esewa_data.tAmt }}">
+            <input type="hidden" name="pid" value="{{ esewa_data.pid }}">
+            <input type="hidden" name="scd" value="{{ esewa_data.scd }}">
+            <input type="hidden" name="su" value="{{ esewa_data.su }}">
+            <input type="hidden" name="fu" value="{{ esewa_data.fu }}">
+        </form>
+    </div>
+</section>
+
+<script>
+    // Auto-submit form after 2 seconds
+    setTimeout(function() {
+        document.getElementById('esewaForm').submit();
+    }, 2000);
+</script>
+{% endblock %}
