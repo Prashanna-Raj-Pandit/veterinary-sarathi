@@ -8,7 +8,11 @@ class Config:
     """Base configuration class with all settings"""
     
     # Flask Configuration
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key-change-in-production'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    if not SECRET_KEY and os.environ.get('FLASK_ENV') == 'production':
+        raise ValueError("SECRET_KEY must be set in production environment")
+    SECRET_KEY = SECRET_KEY or 'dev-secret-key-change-in-production'
+    
     FLASK_ENV = os.environ.get('FLASK_ENV') or 'development'
     DEBUG = os.environ.get('FLASK_DEBUG', 'True') == 'True'
     

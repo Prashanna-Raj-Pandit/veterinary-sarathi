@@ -219,8 +219,9 @@ def delete_course(course_id):
         if os.path.exists(file_path):
             try:
                 os.remove(file_path)
-            except Exception as e:
-                print(f"Error deleting file {file_path}: {e}")
+            except OSError as e:
+                import logging
+                logging.error(f"Error deleting file {file_path}: {e}")
     
     # Delete course (cascade will delete content, enrollments, etc.)
     Course.delete(course_id)
@@ -334,8 +335,9 @@ def delete_content(content_id):
     if os.path.exists(file_path):
         try:
             os.remove(file_path)
-        except Exception as e:
-            print(f"Error deleting file: {e}")
+        except OSError as e:
+            import logging
+            logging.error(f"Error deleting file {file_path}: {e}")
     
     # Delete content record
     Content.delete(content_id)

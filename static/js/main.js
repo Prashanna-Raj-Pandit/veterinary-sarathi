@@ -279,7 +279,12 @@ document.head.appendChild(style);
 
 // Utility functions
 function formatCurrency(amount) {
-    return `NPR ${parseFloat(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+    // Use proper number formatting for NPR currency
+    const number = parseFloat(amount);
+    if (isNaN(number)) return 'NPR 0.00';
+    
+    // Format with 2 decimal places and thousand separators
+    return `NPR ${number.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
 }
 
 function showNotification(message, type = 'info') {

@@ -250,16 +250,30 @@ The application uses eSewa's UAT (User Acceptance Testing) environment by defaul
 ## Security Considerations
 
 ### For Production Deployment
-1. **Change Default Admin Credentials**
-2. **Use Strong SECRET_KEY**
-3. **Enable HTTPS**
-4. **Set SESSION_COOKIE_SECURE = True**
-5. **Use Environment Variables** for sensitive data
+1. **Change Default Admin Credentials** immediately after first login
+2. **Use Strong SECRET_KEY** (generate with `python -c "import secrets; print(secrets.token_hex(32))"`)
+3. **Enable HTTPS** with SSL/TLS certificate
+4. **Set SESSION_COOKIE_SECURE = True** in config.py
+5. **Use Environment Variables** for all sensitive data
 6. **Regular Backups** of database
-7. **Update Dependencies** regularly
-8. **Implement Rate Limiting**
-9. **Add Email Verification** for new users
-10. **Configure Proper File Permissions**
+7. **Update Dependencies** regularly with `pip install --upgrade -r requirements.txt`
+8. **Implement Rate Limiting** to prevent abuse
+9. **Add Email Verification** for new user registrations
+10. **Configure Proper File Permissions** (uploads directory should be 755 or more restrictive)
+
+### ⚠️ CRITICAL: eSewa Payment Verification
+**The current implementation includes development-only payment verification.**
+
+Before deploying to production, you MUST implement proper eSewa payment verification:
+
+1. **Server-to-Server Verification**: Make an API call to eSewa's verification endpoint
+2. **Signature Validation**: Verify the payment signature using eSewa's secret key
+3. **Amount Validation**: Confirm the payment amount matches the expected amount
+4. **Status Check**: Only process enrollment if eSewa confirms payment success
+
+See `routes/payment.py` lines 14-36 and 131-167 for implementation notes.
+
+**Failure to implement proper verification opens the system to payment fraud.**
 
 ## Troubleshooting
 

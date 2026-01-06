@@ -12,13 +12,28 @@ def generate_transaction_id():
     return str(uuid.uuid4())
 
 def verify_esewa_signature(params):
-    """Verify eSewa payment signature for security"""
-    # In production, implement proper signature verification
-    # This is a simplified version for demonstration
+    """
+    Verify eSewa payment signature for security
+    
+    IMPORTANT: In production, this must verify the payment with eSewa's server
+    by making an API call to their verification endpoint with the transaction details.
+    
+    For development/testing, this performs basic validation only.
+    """
+    # Check required parameters are present
     required_params = ['oid', 'amt', 'refId']
     for param in required_params:
         if param not in params:
             return False
+    
+    # TODO: In production, implement actual eSewa signature verification
+    # Example:
+    # 1. Construct verification request with transaction details
+    # 2. Make POST request to eSewa verification endpoint
+    # 3. Parse and validate response
+    # 4. Return True only if eSewa confirms the payment
+    
+    # For now, return True for development (MUST BE FIXED FOR PRODUCTION)
     return True
 
 @payment_bp.route('/initiate/<int:course_id>', methods=['POST'])
@@ -128,8 +143,22 @@ def payment_success():
         flash('Invalid payment response. Please contact support.', 'danger')
         return redirect(url_for('student.dashboard'))
     
+    # CRITICAL: Verify payment with eSewa server
+    # WARNING: This is a development version. In production, you MUST:
+    # 1. Make a server-to-server call to eSewa verification endpoint
+    # 2. Verify the signature and transaction details
+    # 3. Only process enrollment if eSewa confirms the payment
+    
+    # For development: Add warning log
+    import logging
+    logging.warning(f"Payment callback received without server verification for transaction {oid}. "
+                   "This MUST be implemented before production deployment!")
+    
     # Verify payment (in production, verify with eSewa server)
-    # For now, we'll trust the callback (NOT SECURE FOR PRODUCTION)
+    verification_params = {'oid': oid, 'amt': amt, 'refId': refId}
+    if not verify_esewa_signature(verification_params):
+        flash('Payment verification failed. Please contact support.', 'danger')
+        return redirect(url_for('student.dashboard'))
     
     # Update payment status
     conn = get_db_connection()
