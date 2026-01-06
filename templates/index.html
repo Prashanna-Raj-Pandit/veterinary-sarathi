@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Veterinary Sarathi{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Welcome to Veterinary Sarathi</h1>
+            <p>Learn veterinary science from expert instructors. Access comprehensive courses, videos, and study materials.</p>
+            <div class="hero-buttons">
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('courses.index') }}" class="btn btn-primary">Browse Courses</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-secondary">Get Started</a>
+                {% else %}
+                    {% if current_user.is_admin %}
+                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+                    {% else %}
+                        <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary">My Dashboard</a>
+                        <a href="{{ url_for('courses.index') }}" class="btn btn-secondary">Browse Courses</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <h2>Why Choose Veterinary Sarathi?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎓</div>
+                <h3>Expert Instructors</h3>
+                <p>Learn from experienced veterinary professionals with years of practical experience.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Comprehensive Content</h3>
+                <p>Access videos, PDF notes, and PowerPoint presentations for complete learning.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <h3>Easy Payments</h3>
+                <p>Secure payment processing with eSewa for convenient transactions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Learn Anywhere</h3>
+                <p>Access your courses on any device, anytime, anywhere.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses Section -->
+{% if featured_courses %}
+<section class="featured-courses">
+    <div class="container">
+        <h2>Featured Courses</h2>
+        <div class="courses-grid">
+            {% for course in featured_courses %}
+            <div class="course-card">
+                {% if course.thumbnail %}
+                    <img src="{{ url_for('static', filename='../uploads/' ~ course.thumbnail) }}" alt="{{ course.title }}" class="course-thumbnail">
+                {% else %}
+                    <div class="course-thumbnail-placeholder">🐾</div>
+                {% endif %}
+                <div class="course-info">
+                    <span class="course-category">{{ course.category|title }}</span>
+                    <h3>{{ course.title }}</h3>
+                    <p>{{ course.description[:100] }}...</p>
+                    <div class="course-footer">
+                        <span class="course-price">{{ course.price|currency }}</span>
+                        <a href="{{ url_for('student.course_detail', course_id=course.id) }}" class="btn btn-small">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center" style="margin-top: 2rem;">
+            <a href="{{ url_for('courses.index') }}" class="btn btn-primary">View All Courses</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Start Learning?</h2>
+        <p>Join thousands of students advancing their veterinary knowledge.</p>
+        {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-large">Register Now</a>
+        {% else %}
+            <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large">Explore Courses</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
