@@ -119,7 +119,7 @@ class User(UserMixin):
     def create(username, email, password, is_admin=False):
         """Create a new user"""
         conn = get_db_connection()
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
         try:
             cursor = conn.cursor()
             cursor.execute(
