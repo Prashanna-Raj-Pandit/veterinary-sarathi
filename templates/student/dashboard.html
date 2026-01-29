@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}My Dashboard - Veterinary Sarathi{% endblock %}
+{% block title %}My Dashboard - Swasthik Loksewa{% endblock %}
 
 {% block content %}
 <section class="dashboard-section">
@@ -45,8 +45,8 @@
             <div class="empty-state">
                 <div class="empty-icon">📚</div>
                 <h3>You haven't enrolled in any courses yet</h3>
-                <p>Start your learning journey by browsing our course catalog</p>
-                <a href="{{ url_for('courses.index') }}" class="btn btn-primary">Browse Courses</a>
+                <p>Start your learning journey by accessing our comprehensive course</p>
+                <a href="{{ url_for('courses.index') }}" class="btn btn-primary">View Course</a>
             </div>
         {% endif %}
         
@@ -56,7 +56,7 @@
             <div class="actions-grid">
                 <a href="{{ url_for('courses.index') }}" class="action-card">
                     <div class="action-icon">🔍</div>
-                    <h4>Browse Courses</h4>
+                    <h4>View Course</h4>
                 </a>
                 <a href="{{ url_for('student.cart') }}" class="action-card">
                     <div class="action-icon">🛒</div>
