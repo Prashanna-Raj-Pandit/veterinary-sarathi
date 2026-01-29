@@ -4,23 +4,29 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero" style="background-image: linear-gradient(rgba(37, 99, 235, 0.85), rgba(16, 185, 129, 0.85)), url('{{ url_for('static', filename='images/hero-banner.svg') }}'); background-size: cover; background-position: center;">
+<section class="hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Master Your Loksewa Exam with Swasthik Loksewa</h1>
-            <p>Complete video lectures, study notes, and practice materials in one place</p>
-            <div class="hero-buttons">
-                {% if not current_user.is_authenticated %}
-                    <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large">Enroll Now</a>
-                    <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-large">Start Learning Today</a>
-                {% else %}
-                    {% if current_user.is_admin %}
-                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary btn-large">Go to Dashboard</a>
+            <div class="hero-text">
+                <h1>Master Your Loksewa Exam with Swasthik Loksewa</h1>
+                <p>Complete video lectures, study notes, and practice materials in one place</p>
+                <div class="hero-buttons">
+                    {% if not current_user.is_authenticated %}
+                        <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large">Enroll Now</a>
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-large">Start Learning Today</a>
                     {% else %}
-                        <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary btn-large">My Dashboard</a>
-                        <a href="{{ url_for('courses.index') }}" class="btn btn-secondary btn-large">View Course Content</a>
+                        {% if current_user.is_admin %}
+                            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary btn-large">Go to Dashboard</a>
+                        {% else %}
+                            <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary btn-large">My Dashboard</a>
+                            <a href="{{ url_for('courses.index') }}" class="btn btn-secondary btn-large">View Course Content</a>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='images/hero-banner.svg') }}" 
+                     alt="Online Learning Illustration">
             </div>
         </div>
     </div>
@@ -42,38 +48,38 @@
         <h2>What We Offer</h2>
         <div class="features-grid feature-cards-grid">
             <div class="feature-card">
-                <div class="feature-icon-img">
-                    <img src="{{ url_for('static', filename='images/icon-books.svg') }}" alt="Study Notes">
+                <div class="icon-wrapper icon-book">
+                    <i class="fas fa-book"></i>
                 </div>
-                <h3>📚 Study Notes</h3>
+                <h3>Study Notes</h3>
                 <p>Comprehensive PDF study materials covering all Loksewa syllabus</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon-img">
-                    <img src="{{ url_for('static', filename='images/icon-exam.svg') }}" alt="Past Papers">
+                <div class="icon-wrapper icon-file">
+                    <i class="fas fa-file-alt"></i>
                 </div>
-                <h3>📝 Past Exam Papers</h3>
+                <h3>Past Exam Papers</h3>
                 <p>Access previous years' question papers with detailed solutions</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon-img">
-                    <img src="{{ url_for('static', filename='images/icon-mcq.svg') }}" alt="Practice MCQ">
+                <div class="icon-wrapper icon-question">
+                    <i class="fas fa-question-circle"></i>
                 </div>
-                <h3>✅ Practice MCQ</h3>
+                <h3>Practice MCQ</h3>
                 <p>Thousands of practice questions to test your knowledge</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon-img">
-                    <img src="{{ url_for('static', filename='images/icon-guide.svg') }}" alt="Course Guide">
+                <div class="icon-wrapper icon-route">
+                    <i class="fas fa-route"></i>
                 </div>
-                <h3>🎓 Course Guide</h3>
+                <h3>Course Guide</h3>
                 <p>Structured learning path designed by expert instructors</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon-img">
-                    <img src="{{ url_for('static', filename='images/icon-ebooks.svg') }}" alt="eBooks">
+                <div class="icon-wrapper icon-download">
+                    <i class="fas fa-download"></i>
                 </div>
-                <h3>📖 Get eBooks</h3>
+                <h3>Get eBooks</h3>
                 <p>Downloadable eBooks for offline study anytime, anywhere</p>
             </div>
         </div>
@@ -86,27 +92,37 @@
         <h2>What's Inside the Course</h2>
         <div class="inside-grid">
             <div class="inside-item">
-                <span class="inside-icon">🎥</span>
+                <div class="icon-wrapper icon-video">
+                    <i class="fas fa-video"></i>
+                </div>
                 <h4>Video Lectures</h4>
                 <p>Expert-led video lessons covering entire syllabus</p>
             </div>
             <div class="inside-item">
-                <span class="inside-icon">📄</span>
+                <div class="icon-wrapper icon-pdf">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
                 <h4>PDF Study Notes</h4>
                 <p>Detailed notes for revision and quick reference</p>
             </div>
             <div class="inside-item">
-                <span class="inside-icon">📊</span>
+                <div class="icon-wrapper icon-presentation">
+                    <i class="fas fa-presentation"></i>
+                </div>
                 <h4>PowerPoint Presentations</h4>
                 <p>Visual presentations for better understanding</p>
             </div>
             <div class="inside-item">
-                <span class="inside-icon">✅</span>
+                <div class="icon-wrapper icon-check">
+                    <i class="fas fa-check-circle"></i>
+                </div>
                 <h4>Practice Questions</h4>
                 <p>MCQs and practice tests to assess your preparation</p>
             </div>
             <div class="inside-item">
-                <span class="inside-icon">📚</span>
+                <div class="icon-wrapper icon-book-open">
+                    <i class="fas fa-book-open"></i>
+                </div>
                 <h4>Complete Syllabus Coverage</h4>
                 <p>Every topic you need for exam success</p>
             </div>
@@ -123,36 +139,51 @@
                 <div class="testimonial-avatar">
                     <img src="{{ url_for('static', filename='images/avatar1.svg') }}" alt="Rajesh Sharma">
                 </div>
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-quote">"Swasthik Loksewa's comprehensive materials helped me clear the exam in my first attempt!"</p>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-quote">"Swasthik Loksewa's comprehensive materials helped me clear the exam in my first attempt. The structured approach made all the difference."</p>
                 <div class="testimonial-author">
                     <h4>Rajesh Sharma</h4>
                     <p>Administrative Officer</p>
-                    <span class="testimonial-badge">Passed Loksewa 2025</span>
                 </div>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-avatar">
                     <img src="{{ url_for('static', filename='images/avatar2.svg') }}" alt="Sita Karki">
                 </div>
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-quote">"The video lectures and practice questions were incredibly helpful. Highly recommended!"</p>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-quote">"The video lectures and practice questions were incredibly helpful. I highly recommend this course to all Loksewa aspirants."</p>
                 <div class="testimonial-author">
                     <h4>Sita Karki</h4>
                     <p>Health Assistant</p>
-                    <span class="testimonial-badge">Passed Loksewa 2024</span>
                 </div>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-avatar">
                     <img src="{{ url_for('static', filename='images/avatar3.svg') }}" alt="Bikash Thapa">
                 </div>
-                <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-quote">"Best decision I made for my Loksewa preparation. The study notes are excellent!"</p>
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-quote">"Best decision I made for my Loksewa preparation. The study notes are comprehensive and well-organized."</p>
                 <div class="testimonial-author">
                     <h4>Bikash Thapa</h4>
                     <p>Technical Officer</p>
-                    <span class="testimonial-badge">Passed Loksewa 2025</span>
                 </div>
             </div>
         </div>
