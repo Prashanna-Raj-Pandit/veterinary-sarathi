@@ -4,23 +4,28 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero" style="background-image: linear-gradient(rgba(37, 99, 235, 0.85), rgba(16, 185, 129, 0.85)), url('{{ url_for('static', filename='images/hero-banner.svg') }}'); background-size: cover; background-position: center;">
+<section class="hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Master Your Loksewa Exam with Swasthik Loksewa</h1>
-            <p>Complete video lectures, study notes, and practice materials in one place</p>
-            <div class="hero-buttons">
-                {% if not current_user.is_authenticated %}
-                    <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large">Enroll Now</a>
-                    <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-large">Start Learning Today</a>
-                {% else %}
-                    {% if current_user.is_admin %}
-                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary btn-large">Go to Dashboard</a>
+            <div class="hero-text">
+                <h1>Master Your Loksewa Exam with Swasthik Loksewa</h1>
+                <p>Complete video lectures, study notes, and practice materials in one place</p>
+                <div class="hero-buttons">
+                    {% if not current_user.is_authenticated %}
+                        <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large">Enroll Now</a>
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-large">Start Learning Today</a>
                     {% else %}
-                        <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary btn-large">My Dashboard</a>
-                        <a href="{{ url_for('courses.index') }}" class="btn btn-secondary btn-large">View Course Content</a>
+                        {% if current_user.is_admin %}
+                            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary btn-large">Go to Dashboard</a>
+                        {% else %}
+                            <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary btn-large">My Dashboard</a>
+                            <a href="{{ url_for('courses.index') }}" class="btn btn-secondary btn-large">View Course Content</a>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='images/hero-banner.svg') }}" alt="Online Learning Illustration">
             </div>
         </div>
     </div>
@@ -45,35 +50,35 @@
                 <div class="feature-icon-img">
                     <img src="{{ url_for('static', filename='images/icon-books.svg') }}" alt="Study Notes">
                 </div>
-                <h3>📚 Study Notes</h3>
+                <h3>Study Notes</h3>
                 <p>Comprehensive PDF study materials covering all Loksewa syllabus</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon-img">
                     <img src="{{ url_for('static', filename='images/icon-exam.svg') }}" alt="Past Papers">
                 </div>
-                <h3>📝 Past Exam Papers</h3>
+                <h3>Past Exam Papers</h3>
                 <p>Access previous years' question papers with detailed solutions</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon-img">
                     <img src="{{ url_for('static', filename='images/icon-mcq.svg') }}" alt="Practice MCQ">
                 </div>
-                <h3>✅ Practice MCQ</h3>
+                <h3>Practice MCQ</h3>
                 <p>Thousands of practice questions to test your knowledge</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon-img">
                     <img src="{{ url_for('static', filename='images/icon-guide.svg') }}" alt="Course Guide">
                 </div>
-                <h3>🎓 Course Guide</h3>
+                <h3>Course Guide</h3>
                 <p>Structured learning path designed by expert instructors</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon-img">
                     <img src="{{ url_for('static', filename='images/icon-ebooks.svg') }}" alt="eBooks">
                 </div>
-                <h3>📖 Get eBooks</h3>
+                <h3>Get eBooks</h3>
                 <p>Downloadable eBooks for offline study anytime, anywhere</p>
             </div>
         </div>
@@ -86,27 +91,47 @@
         <h2>What's Inside the Course</h2>
         <div class="inside-grid">
             <div class="inside-item">
-                <span class="inside-icon">🎥</span>
+                <div class="inside-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                </div>
                 <h4>Video Lectures</h4>
                 <p>Expert-led video lessons covering entire syllabus</p>
             </div>
             <div class="inside-item">
-                <span class="inside-icon">📄</span>
+                <div class="inside-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
                 <h4>PDF Study Notes</h4>
                 <p>Detailed notes for revision and quick reference</p>
             </div>
             <div class="inside-item">
-                <span class="inside-icon">📊</span>
+                <div class="inside-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
+                    </svg>
+                </div>
                 <h4>PowerPoint Presentations</h4>
                 <p>Visual presentations for better understanding</p>
             </div>
             <div class="inside-item">
-                <span class="inside-icon">✅</span>
+                <div class="inside-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
+                </div>
                 <h4>Practice Questions</h4>
                 <p>MCQs and practice tests to assess your preparation</p>
             </div>
             <div class="inside-item">
-                <span class="inside-icon">📚</span>
+                <div class="inside-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
                 <h4>Complete Syllabus Coverage</h4>
                 <p>Every topic you need for exam success</p>
             </div>
