@@ -17,7 +17,11 @@
                         {% if enrollment.thumbnail %}
                             <img src="{{ url_for('static', filename='../uploads/' ~ enrollment.thumbnail) }}" alt="{{ enrollment.title }}" class="course-thumbnail">
                         {% else %}
-                            <div class="course-thumbnail-placeholder">🐾</div>
+                            <div class="course-thumbnail-placeholder">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                            </div>
                         {% endif %}
                         <div class="course-info">
                             <span class="course-category">{{ enrollment.category|title }}</span>
@@ -43,7 +47,11 @@
             </div>
         {% else %}
             <div class="empty-state">
-                <div class="empty-icon">📚</div>
+                <div class="empty-icon">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
                 <h3>You haven't enrolled in any courses yet</h3>
                 <p>Start your learning journey by accessing our comprehensive course</p>
                 <a href="{{ url_for('courses.index') }}" class="btn btn-primary">View Course</a>
@@ -55,19 +63,35 @@
             <h3>Quick Actions</h3>
             <div class="actions-grid">
                 <a href="{{ url_for('courses.index') }}" class="action-card">
-                    <div class="action-icon">🔍</div>
+                    <div class="action-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </div>
                     <h4>View Course</h4>
                 </a>
                 <a href="{{ url_for('student.cart') }}" class="action-card">
-                    <div class="action-icon">🛒</div>
+                    <div class="action-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+                        </svg>
+                    </div>
                     <h4>My Cart</h4>
                 </a>
                 <a href="{{ url_for('payment.payment_history') }}" class="action-card">
-                    <div class="action-icon">💳</div>
+                    <div class="action-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
                     <h4>Payment History</h4>
                 </a>
                 <a href="{{ url_for('auth.profile') }}" class="action-card">
-                    <div class="action-icon">👤</div>
+                    <div class="action-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
                     <h4>My Profile</h4>
                 </a>
             </div>
