@@ -1,29 +1,29 @@
-# Veterinary Sarathi - Educational Platform
+# Swasthik Loksewa - Loksewa Exam Preparation Platform
 
-A comprehensive web-based educational platform for veterinary science courses with eSewa payment integration for Nepal.
+A comprehensive web-based educational platform for Loksewa (Nepal government job) exam preparation with eSewa payment integration for Nepal.
 
 ## Features
 
 ### 🎓 Student Features
 - User registration and authentication with secure password hashing
-- Browse comprehensive course catalog with search and filtering
-- Course details with curriculum preview
-- Shopping cart functionality
-- Secure eSewa payment gateway integration
-- Personal dashboard with enrolled courses
+- Access to comprehensive Loksewa exam preparation course
+- Course content including video lectures, PDF notes, and PPT presentations
+- Secure eSewa payment gateway integration for course enrollment
+- Personal dashboard with course access
 - Video player for course lectures
-- Download PDF notes and PowerPoint presentations
+- Download PDF study notes and PowerPoint presentations
+- Practice MCQ questions
 - Course progress tracking
 - Payment history
 
 ### 👨‍💼 Admin Features
 - Secure admin dashboard
 - Student management and analytics
-- Course creation and management (CRUD operations)
+- Course content management
 - Content upload (videos, PDFs, presentations)
 - Revenue tracking and analytics
 - View enrollment statistics
-- Manage course pricing and categories
+- Manage course pricing
 
 ### 🔒 Security Features
 - Password hashing using Werkzeug
@@ -56,6 +56,8 @@ git clone https://github.com/Prashanna-Raj-Pandit/veterinary-sarathi.git
 cd veterinary-sarathi
 ```
 
+**Note:** Repository name is being transitioned from veterinary-sarathi to swasthik-loksewa.
+
 ### Step 2: Create Virtual Environment
 ```bash
 # On Windows
@@ -86,7 +88,7 @@ FLASK_DEBUG=True
 
 # Admin Credentials (change these!)
 ADMIN_USERNAME=admin
-ADMIN_EMAIL=admin@veterinarysarathi.com
+ADMIN_EMAIL=admin@swasthikloksewa.com
 ADMIN_PASSWORD=changeme123
 
 # eSewa Configuration
@@ -116,14 +118,14 @@ http://localhost:5000
 
 ## Default Admin Credentials
 ```
-Email: admin@veterinarysarathi.com
+Email: admin@swasthikloksewa.com
 Password: changeme123
 ```
 **⚠️ IMPORTANT: Change these credentials immediately after first login!**
 
 ## Project Structure
 ```
-veterinary-sarathi/
+swasthik-loksewa/
 ├── app.py                      # Main Flask application
 ├── config.py                   # Configuration settings
 ├── models.py                   # Database models
@@ -186,19 +188,15 @@ veterinary-sarathi/
    - Create an account or log in
    - Verify your email (optional feature)
 
-2. **Browse Courses**
-   - Search and filter courses by category
-   - View course details and curriculum
+2. **Enroll in Course**
+   - View comprehensive Loksewa preparation course details
+   - Enroll securely via eSewa payment
 
-3. **Purchase Courses**
-   - Add courses to cart
-   - Proceed to checkout
-   - Pay securely via eSewa
-
-4. **Learn**
-   - Access enrolled courses from dashboard
+3. **Learn**
+   - Access course content from dashboard
    - Watch video lectures
-   - Download PDF notes and presentations
+   - Download PDF study notes and presentations
+   - Practice MCQ questions
    - Track your progress
 
 ### For Administrators
@@ -207,18 +205,14 @@ veterinary-sarathi/
    - Use admin credentials
    - Access admin dashboard
 
-2. **Manage Courses**
-   - Create new courses
-   - Edit course details
-   - Set pricing and categories
-   - Upload course thumbnails
-
-3. **Upload Content**
-   - Select course
-   - Upload videos, PDFs, or presentations
+2. **Manage Course Content**
+   - Upload course materials
+   - Add video lectures
+   - Upload PDF study notes
+   - Upload PowerPoint presentations
    - Set display order
 
-4. **Monitor Platform**
+3. **Monitor Platform**
    - View student statistics
    - Track enrollments
    - Monitor revenue
@@ -326,7 +320,7 @@ This project is licensed under the MIT License.
 
 ## Support
 For support and inquiries:
-- Email: info@veterinarysarathi.com
+- Email: info@swasthikloksewa.com
 - GitHub Issues: [Create an issue](https://github.com/Prashanna-Raj-Pandit/veterinary-sarathi/issues)
 
 ## Acknowledgments
@@ -344,4 +338,4 @@ For support and inquiries:
   - Content management system
 
 ---
-**Made with ❤️ for Veterinary Education in Nepal**
+**Made with ❤️ for Loksewa Aspirants in Nepal**

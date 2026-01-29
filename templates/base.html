@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Veterinary Sarathi - Learn Veterinary Science{% endblock %}</title>
+    <title>{% block title %}Swasthik Loksewa - Your Path to Loksewa Success{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -12,11 +12,11 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <a href="{{ url_for('index') }}">🐾 Veterinary Sarathi</a>
+                <a href="{{ url_for('index') }}">🎓 Swasthik Loksewa</a>
             </div>
             <ul class="nav-menu">
                 <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('courses.index') }}">Courses</a></li>
+                <li><a href="{{ url_for('courses.index') }}">Course</a></li>
                 {% if current_user.is_authenticated %}
                     {% if current_user.is_admin %}
                         <li><a href="{{ url_for('admin.dashboard') }}">Admin Dashboard</a></li>
@@ -67,27 +67,51 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
+                <!-- About Section -->
                 <div class="footer-section">
-                    <h3>Veterinary Sarathi</h3>
-                    <p>Your premier online platform for veterinary education in Nepal.</p>
+                    <h3>Swasthik Loksewa</h3>
+                    <p>Your premier platform for Loksewa exam preparation in Nepal. We provide comprehensive study materials, video lectures, and practice questions to help you succeed in your government job exams.</p>
                 </div>
+                
+                <!-- Quick Links -->
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="{{ url_for('index') }}">Home</a></li>
-                        <li><a href="{{ url_for('courses.index') }}">Courses</a></li>
+                        <li><a href="{{ url_for('courses.index') }}">Course</a></li>
                         <li><a href="{{ url_for('about') }}">About Us</a></li>
                         <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
+                
+                <!-- Contact Info -->
                 <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>Email: info@veterinarysarathi.com</p>
-                    <p>Phone: +977-1-XXXXXXX</p>
+                    <h4>Contact Us</h4>
+                    <p>📧 Email: info@swasthikloksewa.com</p>
+                    <p>📱 Phone: +977-XXXX-XXXXXX</p>
+                    <p>📍 Address: Kathmandu, Nepal</p>
+                    
+                    <div class="social-media" style="margin-top: 1rem;">
+                        <a href="#" class="social-icon" title="Facebook">📘</a>
+                        <a href="#" class="social-icon" title="YouTube">📺</a>
+                        <a href="#" class="social-icon" title="Twitter">🐦</a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter -->
+                <div class="footer-section">
+                    <h4>Stay Updated</h4>
+                    <p>Subscribe to our newsletter for updates and study tips.</p>
+                    <form class="newsletter-form" style="margin-top: 1rem;">
+                        <input type="email" placeholder="Enter your email" class="form-control" style="margin-bottom: 0.5rem;">
+                        <button type="submit" class="btn btn-primary btn-small btn-block">Subscribe</button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Veterinary Sarathi. All rights reserved.</p>
+                <p>&copy; 2026 Swasthik Loksewa. All rights reserved.</p>
             </div>
         </div>
     </footer>

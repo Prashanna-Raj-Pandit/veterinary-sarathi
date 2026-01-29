@@ -31,7 +31,7 @@ class Config:
     
     # Admin Configuration
     ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
-    ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@veterinarysarathi.com')
+    ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@swasthikloksewa.com')
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'changeme123')
     
     # eSewa Payment Gateway Configuration (Nepal)

@@ -48,7 +48,7 @@
             <h3>No payment history</h3>
             {% if not current_user.is_admin %}
             <p>You haven't made any payments yet</p>
-            <a href="{{ url_for('student.courses') }}" class="btn btn-primary">Browse Courses</a>
+            <a href="{{ url_for('student.courses') }}" class="btn btn-primary">View Course</a>
             {% endif %}
         </div>
         {% endif %}

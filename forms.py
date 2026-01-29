@@ -53,15 +53,15 @@ class CourseForm(FlaskForm):
         NumberRange(min=0, message='Price cannot be negative')
     ])
     category = SelectField('Category', choices=[
-        ('basic', 'Basic Veterinary'),
-        ('advanced', 'Advanced Topics'),
-        ('surgery', 'Surgical Procedures'),
-        ('medicine', 'Veterinary Medicine'),
-        ('diagnosis', 'Clinical Diagnosis'),
-        ('anatomy', 'Anatomy & Physiology'),
-        ('pathology', 'Pathology'),
-        ('nutrition', 'Animal Nutrition'),
-        ('reproduction', 'Reproduction & Breeding'),
+        ('general', 'General Knowledge'),
+        ('nepali', 'Nepali Language'),
+        ('english', 'English Language'),
+        ('math', 'Mathematics'),
+        ('science', 'General Science'),
+        ('constitution', 'Constitution & Law'),
+        ('computer', 'Computer Knowledge'),
+        ('current_affairs', 'Current Affairs'),
+        ('aptitude', 'Aptitude & Reasoning'),
         ('other', 'Other')
     ], validators=[DataRequired()])
     thumbnail = FileField('Course Thumbnail', validators=[
@@ -110,19 +110,19 @@ class PasswordChangeForm(FlaskForm):
 
 class SearchForm(FlaskForm):
     """Form for searching courses"""
-    query = StringField('Search Courses', validators=[
+    query = StringField('Search Course Content', validators=[
         Length(max=100, message='Search query is too long')
     ])
     category = SelectField('Filter by Category', choices=[
         ('', 'All Categories'),
-        ('basic', 'Basic Veterinary'),
-        ('advanced', 'Advanced Topics'),
-        ('surgery', 'Surgical Procedures'),
-        ('medicine', 'Veterinary Medicine'),
-        ('diagnosis', 'Clinical Diagnosis'),
-        ('anatomy', 'Anatomy & Physiology'),
-        ('pathology', 'Pathology'),
-        ('nutrition', 'Animal Nutrition'),
-        ('reproduction', 'Reproduction & Breeding'),
+        ('general', 'General Knowledge'),
+        ('nepali', 'Nepali Language'),
+        ('english', 'English Language'),
+        ('math', 'Mathematics'),
+        ('science', 'General Science'),
+        ('constitution', 'Constitution & Law'),
+        ('computer', 'Computer Knowledge'),
+        ('current_affairs', 'Current Affairs'),
+        ('aptitude', 'Aptitude & Reasoning'),
         ('other', 'Other')
     ])
