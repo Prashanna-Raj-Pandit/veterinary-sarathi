@@ -1246,6 +1246,22 @@ html {
     color: var(--primary-teal);
 }
 
+.contact-icon-pro {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    font-size: 1.5rem;
+}
+
+.contact-icon-pro i {
+    color: white;
+}
+
 /* Social Media Icons */
 .social-media {
     display: flex;
@@ -1263,6 +1279,29 @@ html {
 .social-icon:hover {
     opacity: 1;
     transform: scale(1.2);
+}
+
+/* Icon styling for empty states and actions */
+.empty-icon,
+.stat-icon,
+.action-icon {
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+}
+
+.empty-icon::before,
+.stat-icon::before,
+.action-icon::before {
+    content: attr(data-icon);
 }
 
 /* Newsletter Form */
