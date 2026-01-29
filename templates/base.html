@@ -68,8 +68,14 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Veterinary Sarathi</h3>
-                    <p>Your premier online platform for veterinary education in Nepal.</p>
+                    <h3>🐾 Veterinary Sarathi</h3>
+                    <p>Your premier online platform for veterinary education in Nepal. Empowering future veterinarians with quality education and comprehensive learning resources.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Facebook">📘</a>
+                        <a href="#" class="social-link" title="Twitter">🐦</a>
+                        <a href="#" class="social-link" title="Instagram">📷</a>
+                        <a href="#" class="social-link" title="LinkedIn">💼</a>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
@@ -81,13 +87,28 @@
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>Email: info@veterinarysarathi.com</p>
-                    <p>Phone: +977-1-XXXXXXX</p>
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="{{ url_for('courses.index') }}">Study Materials</a></li>
+                        <li><a href="{{ url_for('courses.index') }}">Past Papers</a></li>
+                        <li><a href="{{ url_for('courses.index') }}">Practice MCQs</a></li>
+                        <li><a href="{{ url_for('courses.index') }}">eBooks</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>📧 Email: info@veterinarysarathi.com</p>
+                    <p>📞 Phone: +977-1-XXXXXXX</p>
+                    <p>📍 Location: Kathmandu, Nepal</p>
+                    <h4 style="margin-top: 1.5rem;">Newsletter</h4>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Newsletter signup coming soon!');">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Veterinary Sarathi. All rights reserved.</p>
+                <p>&copy; 2024 Veterinary Sarathi. All rights reserved. Made with ❤️ for veterinary students.</p>
             </div>
         </div>
     </footer>
