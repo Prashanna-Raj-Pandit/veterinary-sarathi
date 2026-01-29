@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Swasthik Loksewa - Your Path to Loksewa Success{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -12,7 +13,10 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <a href="{{ url_for('index') }}">🎓 Swasthik Loksewa</a>
+                <a href="{{ url_for('index') }}" class="nav-brand-text">
+                    <span class="brand-icon">SL</span>
+                    <span>Swasthik Loksewa</span>
+                </a>
             </div>
             <ul class="nav-menu">
                 <li><a href="{{ url_for('index') }}">Home</a></li>
@@ -25,11 +29,11 @@
                     {% else %}
                         <li><a href="{{ url_for('student.dashboard') }}">My Dashboard</a></li>
                         <li><a href="{{ url_for('student.cart') }}">
-                            Cart 🛒
+                            Cart <i class="fas fa-shopping-cart"></i>
                         </a></li>
                     {% endif %}
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle">{{ current_user.username }} ▼</a>
+                        <a href="#" class="dropdown-toggle">{{ current_user.username }} <i class="fas fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url_for('auth.profile') }}">Profile</a></li>
                             <li><a href="{{ url_for('payment.payment_history') }}">Payment History</a></li>
@@ -70,7 +74,7 @@
                 <!-- About Section -->
                 <div class="footer-section">
                     <h3>Swasthik Loksewa</h3>
-                    <p>Your premier platform for Loksewa exam preparation in Nepal. We provide comprehensive study materials, video lectures, and practice questions to help you succeed in your government job exams.</p>
+                    <p>Your trusted partner for Loksewa exam preparation. We provide comprehensive study materials, video lectures, and practice questions to help you succeed in your government job exams.</p>
                 </div>
                 
                 <!-- Quick Links -->
@@ -82,32 +86,25 @@
                         <li><a href="{{ url_for('about') }}">About Us</a></li>
                         <li><a href="{{ url_for('contact') }}">Contact</a></li>
                         <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
                 
                 <!-- Contact Info -->
                 <div class="footer-section">
                     <h4>Contact Us</h4>
-                    <p>📧 Email: info@swasthikloksewa.com</p>
-                    <p>📱 Phone: +977-XXXX-XXXXXX</p>
-                    <p>📍 Address: Kathmandu, Nepal</p>
-                    
-                    <div class="social-media" style="margin-top: 1rem;">
-                        <a href="#" class="social-icon" title="Facebook">📘</a>
-                        <a href="#" class="social-icon" title="YouTube">📺</a>
-                        <a href="#" class="social-icon" title="Twitter">🐦</a>
-                    </div>
+                    <p class="contact-icon"><i class="fas fa-envelope"></i> Email: info@swasthikloksewa.com</p>
+                    <p class="contact-icon"><i class="fas fa-phone"></i> Phone: +977-XXXX-XXXXXX</p>
+                    <p class="contact-icon"><i class="fas fa-map-marker-alt"></i> Kathmandu, Nepal</p>
                 </div>
                 
-                <!-- Newsletter -->
+                <!-- Social -->
                 <div class="footer-section">
-                    <h4>Stay Updated</h4>
-                    <p>Subscribe to our newsletter for updates and study tips.</p>
-                    <form class="newsletter-form" style="margin-top: 1rem;">
-                        <input type="email" placeholder="Enter your email" class="form-control" style="margin-bottom: 0.5rem;">
-                        <button type="submit" class="btn btn-primary btn-small btn-block">Subscribe</button>
-                    </form>
+                    <h4>Follow Us</h4>
+                    <div class="social-media" style="margin-top: 1rem;">
+                        <a href="#" class="social-icon" title="Facebook"><i class="fab fa-facebook" style="font-size: 1.5rem;"></i></a>
+                        <a href="#" class="social-icon" title="YouTube"><i class="fab fa-youtube" style="font-size: 1.5rem;"></i></a>
+                        <a href="#" class="social-icon" title="Twitter"><i class="fab fa-twitter" style="font-size: 1.5rem;"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
