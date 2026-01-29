@@ -1082,34 +1082,138 @@ html {
     }
 }
 
-/* Professional Icon Styles */
-.professional-icon {
-    width: 48px;
-    height: 48px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--primary-blue);
-    color: white;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
+/* Professional Icon Styles - CSS-only geometric shapes */
 .icon-wrapper {
     width: 60px;
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--primary-light);
+    background-color: var(--primary-blue);
+    color: white;
     border-radius: 12px;
     margin: 0 auto 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
 }
 
 .icon-wrapper i {
     font-size: 2rem;
-    color: var(--primary-blue);
+    color: white;
+}
+
+/* CSS-based geometric icon shapes when Font Awesome fails */
+.icon-wrapper i:not([class*="fa-"]) {
+    display: none;
+}
+
+.icon-book i:empty::before,
+.icon-file i:empty::before,
+.icon-question i:empty::before,
+.icon-route i:empty::before,
+.icon-download i:empty::before,
+.icon-video i:empty::before,
+.icon-pdf i:empty::before,
+.icon-presentation i:empty::before,
+.icon-check i:empty::before,
+.icon-book-open i:empty::before {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: white;
+    border-radius: 4px;
+}
+
+/* Book icon */
+.icon-book::after {
+    content: "B";
+    position: absolute;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* File icon */
+.icon-file::after {
+    content: "F";
+    position: absolute;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Question icon */
+.icon-question::after {
+    content: "?";
+    position: absolute;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Route/Guide icon */
+.icon-route::after {
+    content: "G";
+    position: absolute;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Download icon */
+.icon-download::after {
+    content: "↓";
+    position: absolute;
+    color: white;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+/* Video icon */
+.icon-video::after {
+    content: "▶";
+    position: absolute;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* PDF icon */
+.icon-pdf::after {
+    content: "P";
+    position: absolute;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Presentation icon */
+.icon-presentation::after {
+    content: "S";
+    position: absolute;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Check icon */
+.icon-check::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+/* Book open icon */
+.icon-book-open::after {
+    content: "C";
+    position: absolute;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
 }
 
 /* Nav brand without emoji */
