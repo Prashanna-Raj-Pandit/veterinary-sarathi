@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}Home - Veterinary Sarathi{% endblock %}
+{% block title %}Home - Swasthik Loksewa{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero">
+<section class="hero" style="background-image: linear-gradient(rgba(37, 99, 235, 0.85), rgba(16, 185, 129, 0.85)), url('{{ url_for('static', filename='images/hero-banner.svg') }}'); background-size: cover; background-position: center;">
     <div class="container">
         <div class="hero-content">
-            <h1>Welcome to Veterinary Sarathi</h1>
-            <p>Learn veterinary science from expert instructors. Access comprehensive courses, videos, and study materials.</p>
+            <h1>Master Your Loksewa Exam with Swasthik Loksewa</h1>
+            <p>Complete video lectures, study notes, and practice materials in one place</p>
             <div class="hero-buttons">
                 {% if not current_user.is_authenticated %}
-                    <a href="{{ url_for('courses.index') }}" class="btn btn-primary">Browse Courses</a>
-                    <a href="{{ url_for('auth.register') }}" class="btn btn-secondary">Get Started</a>
+                    <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large">Enroll Now</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-large">Start Learning Today</a>
                 {% else %}
                     {% if current_user.is_admin %}
-                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary btn-large">Go to Dashboard</a>
                     {% else %}
-                        <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary">My Dashboard</a>
-                        <a href="{{ url_for('courses.index') }}" class="btn btn-secondary">Browse Courses</a>
+                        <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary btn-large">My Dashboard</a>
+                        <a href="{{ url_for('courses.index') }}" class="btn btn-secondary btn-large">View Course Content</a>
                     {% endif %}
                 {% endif %}
             </div>
@@ -26,76 +26,148 @@
     </div>
 </section>
 
-<!-- Features Section -->
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Your Path to Loksewa Success</h2>
+            <p>Swasthik Loksewa is Nepal's premier online platform dedicated to helping you succeed in Loksewa (government job) examinations. Our comprehensive course provides everything you need to ace your exam in one convenient place.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Feature Cards Section -->
 <section class="features">
     <div class="container">
-        <h2>Why Choose Veterinary Sarathi?</h2>
-        <div class="features-grid">
+        <h2>What We Offer</h2>
+        <div class="features-grid feature-cards-grid">
             <div class="feature-card">
-                <div class="feature-icon">🎓</div>
-                <h3>Expert Instructors</h3>
-                <p>Learn from experienced veterinary professionals with years of practical experience.</p>
+                <div class="feature-icon-img">
+                    <img src="{{ url_for('static', filename='images/icon-books.svg') }}" alt="Study Notes">
+                </div>
+                <h3>📚 Study Notes</h3>
+                <p>Comprehensive PDF study materials covering all Loksewa syllabus</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3>Comprehensive Content</h3>
-                <p>Access videos, PDF notes, and PowerPoint presentations for complete learning.</p>
+                <div class="feature-icon-img">
+                    <img src="{{ url_for('static', filename='images/icon-exam.svg') }}" alt="Past Papers">
+                </div>
+                <h3>📝 Past Exam Papers</h3>
+                <p>Access previous years' question papers with detailed solutions</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">💳</div>
-                <h3>Easy Payments</h3>
-                <p>Secure payment processing with eSewa for convenient transactions.</p>
+                <div class="feature-icon-img">
+                    <img src="{{ url_for('static', filename='images/icon-mcq.svg') }}" alt="Practice MCQ">
+                </div>
+                <h3>✅ Practice MCQ</h3>
+                <p>Thousands of practice questions to test your knowledge</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>Learn Anywhere</h3>
-                <p>Access your courses on any device, anytime, anywhere.</p>
+                <div class="feature-icon-img">
+                    <img src="{{ url_for('static', filename='images/icon-guide.svg') }}" alt="Course Guide">
+                </div>
+                <h3>🎓 Course Guide</h3>
+                <p>Structured learning path designed by expert instructors</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-img">
+                    <img src="{{ url_for('static', filename='images/icon-ebooks.svg') }}" alt="eBooks">
+                </div>
+                <h3>📖 Get eBooks</h3>
+                <p>Downloadable eBooks for offline study anytime, anywhere</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Featured Courses Section -->
-{% if featured_courses %}
-<section class="featured-courses">
+<!-- What's Inside Section -->
+<section class="whats-inside-section">
     <div class="container">
-        <h2>Featured Courses</h2>
-        <div class="courses-grid">
-            {% for course in featured_courses %}
-            <div class="course-card">
-                {% if course.thumbnail %}
-                    <img src="{{ url_for('static', filename='../uploads/' ~ course.thumbnail) }}" alt="{{ course.title }}" class="course-thumbnail">
-                {% else %}
-                    <div class="course-thumbnail-placeholder">🐾</div>
-                {% endif %}
-                <div class="course-info">
-                    <span class="course-category">{{ course.category|title }}</span>
-                    <h3>{{ course.title }}</h3>
-                    <p>{{ course.description[:100] }}...</p>
-                    <div class="course-footer">
-                        <span class="course-price">{{ course.price|currency }}</span>
-                        <a href="{{ url_for('student.course_detail', course_id=course.id) }}" class="btn btn-small">View Details</a>
-                    </div>
+        <h2>What's Inside the Course</h2>
+        <div class="inside-grid">
+            <div class="inside-item">
+                <span class="inside-icon">🎥</span>
+                <h4>Video Lectures</h4>
+                <p>Expert-led video lessons covering entire syllabus</p>
+            </div>
+            <div class="inside-item">
+                <span class="inside-icon">📄</span>
+                <h4>PDF Study Notes</h4>
+                <p>Detailed notes for revision and quick reference</p>
+            </div>
+            <div class="inside-item">
+                <span class="inside-icon">📊</span>
+                <h4>PowerPoint Presentations</h4>
+                <p>Visual presentations for better understanding</p>
+            </div>
+            <div class="inside-item">
+                <span class="inside-icon">✅</span>
+                <h4>Practice Questions</h4>
+                <p>MCQs and practice tests to assess your preparation</p>
+            </div>
+            <div class="inside-item">
+                <span class="inside-icon">📚</span>
+                <h4>Complete Syllabus Coverage</h4>
+                <p>Every topic you need for exam success</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <h2>Success Stories from Our Students</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="{{ url_for('static', filename='images/avatar1.svg') }}" alt="Rajesh Sharma">
+                </div>
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-quote">"Swasthik Loksewa's comprehensive materials helped me clear the exam in my first attempt!"</p>
+                <div class="testimonial-author">
+                    <h4>Rajesh Sharma</h4>
+                    <p>Administrative Officer</p>
+                    <span class="testimonial-badge">Passed Loksewa 2025</span>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-        <div class="text-center" style="margin-top: 2rem;">
-            <a href="{{ url_for('courses.index') }}" class="btn btn-primary">View All Courses</a>
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="{{ url_for('static', filename='images/avatar2.svg') }}" alt="Sita Karki">
+                </div>
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-quote">"The video lectures and practice questions were incredibly helpful. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <h4>Sita Karki</h4>
+                    <p>Health Assistant</p>
+                    <span class="testimonial-badge">Passed Loksewa 2024</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">
+                    <img src="{{ url_for('static', filename='images/avatar3.svg') }}" alt="Bikash Thapa">
+                </div>
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-quote">"Best decision I made for my Loksewa preparation. The study notes are excellent!"</p>
+                <div class="testimonial-author">
+                    <h4>Bikash Thapa</h4>
+                    <p>Technical Officer</p>
+                    <span class="testimonial-badge">Passed Loksewa 2025</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-{% endif %}
 
-<!-- CTA Section -->
+<!-- Final CTA Section -->
 <section class="cta-section">
     <div class="container">
-        <h2>Ready to Start Learning?</h2>
-        <p>Join thousands of students advancing their veterinary knowledge.</p>
+        <h2>Ready to Start Your Loksewa Journey?</h2>
+        <p>Join hundreds of successful students who achieved their dream government jobs</p>
         {% if not current_user.is_authenticated %}
-            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-large">Register Now</a>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-large cta-button">Enroll Now</a>
         {% else %}
-            <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large">Explore Courses</a>
+            <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large cta-button">Access Course Content</a>
         {% endif %}
     </div>
 </section>
