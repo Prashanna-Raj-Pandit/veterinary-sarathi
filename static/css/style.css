@@ -692,6 +692,11 @@ html {
 
 .stat-icon {
     font-size: 2.5rem;
+    color: var(--primary-medium);
+}
+
+.stat-icon svg {
+    stroke: var(--primary-medium);
 }
 
 .stat-info h3 {
@@ -732,6 +737,11 @@ html {
 .action-icon {
     font-size: 2rem;
     margin-bottom: 0.5rem;
+    color: var(--primary-medium);
+}
+
+.action-icon svg {
+    stroke: var(--primary-medium);
 }
 
 /* Empty State */
@@ -743,6 +753,12 @@ html {
 .empty-icon {
     font-size: 4rem;
     margin-bottom: 1rem;
+    color: var(--primary-medium);
+}
+
+.empty-icon svg {
+    stroke: var(--primary-medium);
+    margin: 0 auto;
 }
 
 .empty-state h3 {
@@ -1124,11 +1140,17 @@ html {
     font-size: 1.5rem;
     transition: var(--transition);
     opacity: 0.8;
+    color: white;
+}
+
+.social-icon svg {
+    fill: currentColor;
 }
 
 .social-icon:hover {
     opacity: 1;
     transform: scale(1.2);
+    color: var(--secondary-color);
 }
 
 /* Newsletter Form */
@@ -1266,12 +1288,39 @@ html {
 }
 
 .content-item:hover {
-    background-color: var(--light-color);
+    background-color: var(--light-bg);
 }
 
 .content-item.active {
-    background-color: var(--primary-color);
+    background-color: var(--primary-medium);
     color: white;
+}
+
+.content-item-icon {
+    color: var(--primary-medium);
+    flex-shrink: 0;
+}
+
+.content-item-icon svg {
+    stroke: var(--primary-medium);
+}
+
+.content-item.active .content-item-icon {
+    color: white;
+}
+
+.content-item.active .content-item-icon svg {
+    stroke: white;
+}
+
+.content-type-icon {
+    color: var(--primary-medium);
+    margin-right: 0.5rem;
+}
+
+.content-type-icon svg {
+    stroke: var(--primary-medium);
+    vertical-align: middle;
 }
 
 @media (max-width: 1024px) {
