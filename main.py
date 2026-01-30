@@ -120,9 +120,13 @@ def inject_user():
     """Inject current_user into all templates"""
     return dict(current_user=current_user)
 
+try:
+    initialize_app()
+except Exception as e:
+    print(f"Warning: Initialization error: {e}")
+
 if __name__ == '__main__':
     # Initialize app on first run
-    initialize_app()
-    
+    # initialize_app()
     # Run the application
     app.run()
