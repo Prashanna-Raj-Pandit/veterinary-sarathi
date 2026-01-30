@@ -125,4 +125,4 @@ if __name__ == '__main__':
     initialize_app()
     
     # Run the application
-    app.run(debug=Config.DEBUG, host='0.0.0.0', port=5000)
+    app.run()
