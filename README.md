@@ -101,7 +101,7 @@ ESEWA_API_URL=https://uat.esewa.com.np/epay/main
 
 ### Step 5: Initialize the Application
 ```bash
-python app.py
+python main.py
 ```
 
 The application will:
@@ -275,7 +275,7 @@ See `routes/payment.py` lines 14-36 and 131-167 for implementation notes.
 ```bash
 # Delete the database and reinitialize
 rm veterinary_sarathi.db
-python app.py
+python main.py
 ```
 
 ### Upload Issues
@@ -298,7 +298,7 @@ pip install --upgrade -r requirements.txt
 export FLASK_ENV=development  # Linux/macOS
 set FLASK_ENV=development     # Windows
 
-python app.py
+python main.py
 ```
 
 ### Adding New Features
