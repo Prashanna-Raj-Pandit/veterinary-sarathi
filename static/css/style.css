@@ -492,12 +492,6 @@ html {
     height: 64px;
 }
 
-.feature-icon-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(27%) sepia(45%) saturate(1052%) hue-rotate(162deg) brightness(94%) contrast(93%);
-}
 
 .feature-card h3 {
     margin-bottom: 1rem;
@@ -510,6 +504,9 @@ html {
     color: var(--text-color);
     line-height: 1.6;
 }
+
+
+
 
 /* Course Grid */
 .courses-grid {
@@ -821,7 +818,7 @@ html {
     background-color: var(--primary-dark);
     color: white;
     padding: 3rem 0 1rem;
-    margin-top: 4rem;
+    margin-top: 0rem;
 }
 
 .footer-content {

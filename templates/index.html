@@ -8,12 +8,12 @@
     <div class="container">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>Master Your Loksewa Exam with Swasthik Loksewa</h1>
+                <h1>Master Your Veterinary and Livestock Loksewa Exam</h1>
                 <p>Complete video lectures, study notes, and practice materials in one place</p>
                 <div class="hero-buttons">
                     {% if not current_user.is_authenticated %}
                         <a href="{{ url_for('courses.index') }}" class="btn btn-primary btn-large">Enroll Now</a>
-                        <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-large">Start Learning Today</a>
+                        <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-large">Practice MCQ</a>
                     {% else %}
                         {% if current_user.is_admin %}
                             <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary btn-large">Go to Dashboard</a>
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="{{ url_for('static', filename='images/hero-banner.svg') }}" alt="Online Learning Illustration">
+                <img src="{{ url_for('static', filename='images/banner.png') }}" alt="Online Learning Illustration">
             </div>
         </div>
     </div>
@@ -85,6 +85,8 @@
     </div>
 </section>
 
+
+
 <!-- What's Inside Section -->
 <section class="whats-inside-section">
     <div class="container">
@@ -105,18 +107,10 @@
                         <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
                 </div>
-                <h4>PDF Study Notes</h4>
+                <h4>PDF Study Notes & PowerPoint Presentations</h4>
                 <p>Detailed notes for revision and quick reference</p>
             </div>
-            <div class="inside-item">
-                <div class="inside-icon">
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
-                    </svg>
-                </div>
-                <h4>PowerPoint Presentations</h4>
-                <p>Visual presentations for better understanding</p>
-            </div>
+
             <div class="inside-item">
                 <div class="inside-icon">
                     <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
