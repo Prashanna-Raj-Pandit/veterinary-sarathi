@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# Detect if running on Vercel
+IS_VERCEL = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
+
 class Config:
     """Base configuration class with all settings"""
     
@@ -16,14 +19,21 @@ class Config:
     FLASK_ENV = os.environ.get('FLASK_ENV') or 'development'
     DEBUG = os.environ.get('FLASK_DEBUG', 'True') == 'True'
     
-    # Database Configuration
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///veterinary_sarathi.db'
+    # Database Configuration - use /tmp on Vercel
+    if IS_VERCEL:
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:////tmp/veterinary_sarathi.db'
+    else:
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or 'sqlite:///veterinary_sarathi.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
-    # Upload Configuration
+    # Upload Configuration - use /tmp on Vercel
     MAX_CONTENT_LENGTH = int(os.environ.get('MAX_CONTENT_LENGTH', 524288000))  # 500MB default
-    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
-                                  os.environ.get('UPLOAD_FOLDER', 'uploads'))
+    
+    if IS_VERCEL:
+        UPLOAD_FOLDER = '/tmp/uploads'
+    else:
+        UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
+                                      os.environ.get('UPLOAD_FOLDER', 'uploads'))
     ALLOWED_VIDEO_EXTENSIONS = {'mp4', 'avi', 'mov', 'mkv', 'webm'}
     ALLOWED_DOCUMENT_EXTENSIONS = {'pdf'}
     ALLOWED_PRESENTATION_EXTENSIONS = {'ppt', 'pptx'}

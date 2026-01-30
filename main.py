@@ -74,39 +74,52 @@ def forbidden_error(error):
 # Create upload directories if they don't exist
 def create_upload_directories():
     """Ensure all upload directories exist"""
-    directories = [
-        Config.UPLOAD_FOLDER,
-        os.path.join(Config.UPLOAD_FOLDER, 'videos'),
-        os.path.join(Config.UPLOAD_FOLDER, 'notes'),
-        os.path.join(Config.UPLOAD_FOLDER, 'presentations'),
-        os.path.join(Config.UPLOAD_FOLDER, 'images')
-    ]
-    for directory in directories:
-        os.makedirs(directory, exist_ok=True)
-        # Create .gitkeep file to preserve directory structure
-        gitkeep_path = os.path.join(directory, '.gitkeep')
-        if not os.path.exists(gitkeep_path):
-            open(gitkeep_path, 'a').close()
+    try:
+        directories = [
+            Config.UPLOAD_FOLDER,
+            os.path.join(Config.UPLOAD_FOLDER, 'videos'),
+            os.path.join(Config.UPLOAD_FOLDER, 'notes'),
+            os.path.join(Config.UPLOAD_FOLDER, 'presentations'),
+            os.path.join(Config.UPLOAD_FOLDER, 'images')
+        ]
+        for directory in directories:
+            os.makedirs(directory, exist_ok=True)
+            # Create .gitkeep file to preserve directory structure
+            gitkeep_path = os.path.join(directory, '.gitkeep')
+            if not os.path.exists(gitkeep_path):
+                open(gitkeep_path, 'a').close()
+        print(f"Upload directories created at: {Config.UPLOAD_FOLDER}")
+    except Exception as e:
+        print(f"Warning: Could not create upload directories: {e}")
+        # Continue anyway - directories might be read-only on serverless
 
 def create_admin_user():
     """Create default admin user if it doesn't exist"""
-    admin = User.get_by_email(Config.ADMIN_EMAIL)
-    if not admin:
-        User.create(
-            username=Config.ADMIN_USERNAME,
-            email=Config.ADMIN_EMAIL,
-            password=Config.ADMIN_PASSWORD,
-            is_admin=True
-        )
-        print(f"Admin user created: {Config.ADMIN_EMAIL}")
+    try:
+        admin = User.get_by_email(Config.ADMIN_EMAIL)
+        if not admin:
+            User.create(
+                username=Config.ADMIN_USERNAME,
+                email=Config.ADMIN_EMAIL,
+                password=Config.ADMIN_PASSWORD,
+                is_admin=True
+            )
+            print(f"Admin user created: {Config.ADMIN_EMAIL}")
+    except Exception as e:
+        print(f"Warning: Could not create admin user: {e}")
 
 # Initialize application
 def initialize_app():
     """Initialize database and create necessary directories"""
-    init_db()
+    try:
+        init_db()
+        print("Database initialized successfully!")
+    except Exception as e:
+        print(f"Warning: Database initialization error: {e}")
+    
     create_upload_directories()
     create_admin_user()
-    print("Application initialized successfully!")
+    print("Application initialization completed!")
 
 # Template filters
 @app.template_filter('currency')
@@ -120,13 +133,15 @@ def inject_user():
     """Inject current_user into all templates"""
     return dict(current_user=current_user)
 
+# Initialize the app with error handling
 try:
     initialize_app()
 except Exception as e:
     print(f"Warning: Initialization error: {e}")
+    # Continue anyway for serverless
 
+# Local development entry point
 if __name__ == '__main__':
-    # Initialize app on first run
-    # initialize_app()
-    # Run the application
-    app.run()
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
+# Vercel uses the 'app' variable automatically

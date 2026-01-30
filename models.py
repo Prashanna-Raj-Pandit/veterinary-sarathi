@@ -4,8 +4,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 import os
 
-# Database file path
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'veterinary_sarathi.db')
+# Detect Vercel environment
+IS_VERCEL = os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV') is not None
+
+# Database file path - use /tmp on Vercel
+if IS_VERCEL:
+    DB_PATH = '/tmp/veterinary_sarathi.db'
+else:
+    DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'veterinary_sarathi.db')
 
 def get_db_connection():
     """Create and return a database connection"""

@@ -241,6 +241,28 @@ The application uses eSewa's UAT (User Acceptance Testing) environment by defaul
 - Supported presentation formats: ppt, pptx
 - Supported image formats: png, jpg, jpeg, gif, webp
 
+## ⚠️ Important: Vercel Deployment Limitations
+
+This application uses SQLite and local file storage, which have limitations on Vercel:
+
+### Database Persistence
+- SQLite on Vercel is stored in `/tmp` and is **ephemeral** (temporary)
+- Database is recreated on each cold start
+- **For production on Vercel, use PostgreSQL, MySQL, or MongoDB**
+
+### File Uploads
+- File uploads are stored in `/tmp` on Vercel and are **not persistent**
+- Uploaded videos, PDFs, and images will be lost after function timeout
+- **For production, use AWS S3, Cloudinary, or similar cloud storage**
+
+### Recommended Production Setup
+1. Use PostgreSQL (Vercel Postgres, Supabase, or Neon)
+2. Use S3/Cloudinary for file uploads
+3. Set environment variables in Vercel dashboard:
+   - `DATABASE_URI` - PostgreSQL connection string
+   - `SECRET_KEY` - Strong secret key
+   - `ADMIN_EMAIL` and `ADMIN_PASSWORD` - Admin credentials
+
 ## Security Considerations
 
 ### For Production Deployment
